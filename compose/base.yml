@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  sink:
+    container_name: sink
+    image: thomasr/benchmark-sink:v1
+    build:
+      context: ..
+      dockerfile: Dockerfile
+
+    ports:
+      - 8080:8080

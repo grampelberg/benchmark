@@ -1,0 +1,35 @@
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: generator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: generator
+    spec:
+      containers:
+      - image: buoyantio/slow_cooker:1.2.0
+        imagePullPolicy: Always
+        name: generator
+        env:
+          - name: QPS
+            value: "100"
+          - name: CONCURRENCY
+            value: "10"
+
+        command: ["/bin/sh", "-c"]
+        args:
+          - |-
+            slow_cooker \
+              -qps ${QPS} \
+              -concurrency ${CONCURRENCY} \
+              -metric-addr 0.0.0.0:5000 \
+              http://sink:8080/static/index.html
+
+        resources:
+          requests:
+            cpu: 500m

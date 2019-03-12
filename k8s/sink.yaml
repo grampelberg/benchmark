@@ -1,0 +1,38 @@
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sink
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sink
+    spec:
+      containers:
+        - image: thomasr/benchmark-sink:v1
+          imagePullPolicy: Always
+          name: web
+          command: ["/code/bin/run.sh"]
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            requests:
+              cpu: 1000m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sink
+spec:
+  selector:
+    app: sink
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

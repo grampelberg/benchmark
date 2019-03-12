@@ -1,0 +1,5 @@
+starlette[full]
+starlette-prometheus
+uvicorn
+pip-tools
+gunicorn

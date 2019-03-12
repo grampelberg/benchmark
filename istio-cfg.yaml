@@ -1,0 +1,23 @@
+global:
+  controlPlaneSecurityEnabled: false
+
+  mtls:
+    enabled: false
+
+ingress:
+  enabled: false
+
+grafana:
+  enabled: true
+
+servicegraph:
+  enabled: false
+
+tracing:
+  enabled: false
+
+kiali:
+  enabled: false
+
+certmanager:
+  enabled: false
